@@ -34,7 +34,7 @@ const onSubmit = async (data) => {
   try {
     console.log("Product ID:", product.id);
     console.log("Token:", token);
-    console.log("Profile email:", profile.email);
+    console.log("Profile email:", profile?.email);
 
     if (!product.id) return alert("Product ID missing!");
     if (!profile?.email) return alert("Please login to submit review!");
@@ -68,7 +68,7 @@ const onSubmit = async (data) => {
   }
 };
 
-  console.log(profile.email);
+  // console.log(profile?.email);
 
   return (
     <div className="border rounded-md p-4 shadow hover:shadow-lg transition-shadow duration-300 max-w-sm">

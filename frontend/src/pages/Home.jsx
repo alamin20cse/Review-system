@@ -2,52 +2,56 @@ import React, { useState } from "react";
 import useProducts from "../hooks/useProducts";
 import ProductCard from "./ProductCard";
 
-import { Link } from "react-router-dom";
-
-
 const Home = () => {
-  const [products, isLoading] = useProducts();
-
-
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+
+  const { products, isLoading } = useProducts(searchTerm);
 
   const itemsPerPage = 6;
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
+  if (isLoading) return <h1>Loading...</h1>;
 
-    // console.log(products);
-    // console.log(categori);
-
-  // If your API response has results array
   const allProducts = products?.results || [];
 
-  // Calculate pagination indexes
+  // Pagination
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = allProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const totalPages = Math.ceil(allProducts.length / itemsPerPage);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setCurrentPage(1); // reset pagination on new search
+  };
+
   return (
     <div className="pt-10">
+      <form onSubmit={handleSearch} className="mb-5 flex gap-2">
+        <input
+          type="text"
+          placeholder="Search here"
+          className="input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button type="submit" className="btn btn-primary bg-amber-300">
+          Search
+        </button>
+      </form>
 
-
-
-
-
-
-      {/* Product Grid */}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2">
-        {currentProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-     
+        {currentProducts.length > 0 ? (
+          currentProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        ) : (
+          <p>No products found</p>
+        )}
       </div>
 
-      {/* Pagination Controls */}
+      {/* Pagination */}
       <div className="flex justify-center items-center mt-6 gap-2">
         <button
           className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"

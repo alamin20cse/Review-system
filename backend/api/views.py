@@ -43,15 +43,22 @@ class UserViewSet(viewsets.ViewSet):
     
 
 
+from rest_framework import generics, mixins, filters
+from rest_framework.permissions import AllowAny
+from .models import Product
+from .serializers import ProductSerializers
 
-
-class ProductView(generics.GenericAPIView,mixins.ListModelMixin,mixins.RetrieveModelMixin):
-    permission_classes = [AllowAny, ]
+class ProductView(generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin):
+    permission_classes = [AllowAny]
     queryset = Product.objects.all().order_by("-id")
-    serializer_class=ProductSerializers
+    serializer_class = ProductSerializers
     lookup_field = "id"
 
-    def get(self,request,id=None):
+    # Search filter যোগ করা হলো
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'description']  # এখানে কোন কোন ফিল্ডে search হবে তা নির্ধারণ করা হলো
+
+    def get(self, request, id=None):
         if id:
             return self.retrieve(request)
         else:
