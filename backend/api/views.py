@@ -118,6 +118,7 @@ from .serializers import ReviewSerializer
 
 class ForSpecificProductReview(generics.ListAPIView):
     serializer_class = ReviewSerializer
+    permission_classes=[AllowAny]
 
     # Get reviews filtered by product_id from URL
     def get_queryset(self):
