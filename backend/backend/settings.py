@@ -158,6 +158,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build', 'static')]  # React static assets
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')             # Django collectstatic destination
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+
+
+
+
+STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -166,8 +177,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/','static')]
-STATIC_ROOT = os.path.join(BASE_DIR,'build/', 'staticroot/')
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
@@ -220,6 +231,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React dev server
     # "https://yourfrontenddomain.com",
     'http://localhost:5173',
-    'https://review-system-rkfk.vercel.app',
+    'https://review-system-hazel.vercel.app',
     
 ]
