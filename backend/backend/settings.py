@@ -30,12 +30,14 @@ SECRET_KEY = 'f3(^&n#pyb#&j!u753gz*lfh10j*7@fertv5em-m38bf5^c063'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
+   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -93,17 +96,27 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'reviewsystem',  # তোমার MySQL ডাটাবেসের নাম
+#         'USER': os.getenv("DB_USER"),      # .env ফাইলে সেট করবে
+#         'PASSWORD': os.getenv("DB_PWD"),   # .env ফাইলে সেট করবে
+#         'HOST': os.getenv("DB_HOST", "localhost"),
+#         'PORT': os.getenv("DB_PORT", "3306"),
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reviewsystem',  # তোমার MySQL ডাটাবেসের নাম
-        'USER': os.getenv("DB_USER"),      # .env ফাইলে সেট করবে
-        'PASSWORD': os.getenv("DB_PWD"),   # .env ফাইলে সেট করবে
-        'HOST': os.getenv("DB_HOST", "localhost"),
-        'PORT': os.getenv("DB_PORT", "3306"),
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PWD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT", "5432"),
     }
 }
 
@@ -143,8 +156,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-
 STATIC_URL = '/static/'
+
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+
+
+
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/','static')]
 STATIC_ROOT = os.path.join(BASE_DIR,'build/', 'staticroot/')
@@ -154,7 +174,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 CORS_URLS_REGEX = r'^/api.*'
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
 
 
@@ -194,3 +214,12 @@ SIMPLE_JWT = {
 
 
 # STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React dev server
+    # "https://yourfrontenddomain.com",
+    'http://localhost:5173',
+    'https://review-system-rkfk.vercel.app',
+    
+]
