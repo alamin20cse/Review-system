@@ -232,5 +232,6 @@ CORS_ALLOWED_ORIGINS = [
     # "https://yourfrontenddomain.com",
     'http://localhost:5173',
     'https://review-system-hazel.vercel.app',
+    'https://reviewsyste.netlify.app',
     
 ]
