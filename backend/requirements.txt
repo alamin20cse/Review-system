@@ -7,3 +7,5 @@ pytz
 sqlparse
 python-dotenv
 PyMySQL
+gunicorn
+psycopg2-binary
