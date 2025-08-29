@@ -28,11 +28,19 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'photo', 'is_staff', 'is_blocked')
   
 
+
+
 class ProductSerializers(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = "__all__"
-        depth = 1
+        fields = ['id', 'title', 'date', 'image', 'marcket_price', 'selling_price', 'description', 'category']
+
+    def to_representation(self, instance):
+        """Override the default representation to replace `image` field with full Cloudinary URL."""
+        rep = super().to_representation(instance)
+        if instance.image:
+            rep['image'] = instance.image.url  # CloudinaryField এর full URL
+        return rep
 
 
 class CatagorySerializer(serializers.ModelSerializer):
