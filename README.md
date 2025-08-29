@@ -8,6 +8,7 @@ Includes user **Login & Registration system** with authentication.
 ## 🌐 Live Demo
 
 - **Frontend (React + Vercel)** 👉 [Review System Live](https://review-system-hazel.vercel.app/)  
+- **Frontend (React + Netlify)** 👉 [Review System Live](https://reviewsyste.netlify.app/)  
 - **Backend (Django REST + Render)** 👉 [Admin Panel](https://review-system-wls0.onrender.com/admin/)  
 
 ---
