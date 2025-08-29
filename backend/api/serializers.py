@@ -21,12 +21,17 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)  # password auto-hash
         return user
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'photo', 'is_staff', 'is_blocked')
-  
+
+    def to_representation(self, instance):
+        """Override the default representation to replace `photo` field with full Cloudinary URL."""
+        rep = super().to_representation(instance)
+        if instance.photo:
+            rep['photo'] = instance.photo.url  # CloudinaryField full URL
+        return rep
 
 
 
@@ -52,8 +57,15 @@ class CatagorySerializer(serializers.ModelSerializer):
 # serializers.py
 class ReviewSerializer(serializers.ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
-    
+
     class Meta:
         model = Review
         fields = '__all__'
         read_only_fields = ('email', 'date')
+
+    # Only if Review has an image field
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        if hasattr(instance, 'image') and instance.image:
+            rep['image'] = instance.image.url
+        return rep
