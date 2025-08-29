@@ -241,7 +241,7 @@ CORS_ALLOWED_ORIGINS = [
 
 
 
-# Cloudinary configuration
+
 
 # MEDIA_URL এবং MEDIA_ROOT আর দরকার নেই
 # MEDIA_URL = '/media/'
