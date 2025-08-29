@@ -243,6 +243,11 @@ CORS_ALLOWED_ORIGINS = [
 
 # Cloudinary configuration
 
+# MEDIA_URL এবং MEDIA_ROOT আর দরকার নেই
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Cloudinary configuration
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": os.getenv("CLOUD_NAME"),
     "API_KEY": os.getenv("API_KEY"),

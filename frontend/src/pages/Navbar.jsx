@@ -8,7 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const isLoggedIn = useIsLoggedIn();  // <-- এখানে
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   function handleLogout() {
     logout();
