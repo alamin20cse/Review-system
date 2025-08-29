@@ -24,27 +24,12 @@ urlpatterns = [
     path('api/',include('api.urls'))
 ]
 
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-#     urlpatterns += [
-#         re_path(r'^.*', TemplateView.as_view(template_name='index.html')),
-#     ]
 
-# if not settings.DEBUG:
-#     urlpatterns +=[
-#         re_path(r'^.*', TemplateView.as_view(template_name='index.html')),
-#     ]
-
-
-
-
-# Serve media files (only for local/dev)
+# ✅ Static শুধু লোকাল ডেভেলপমেন্টে serve হবে
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-# SPA fallback route (React)
+# ✅ SPA fallback route (React)
 urlpatterns += [
     re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]
