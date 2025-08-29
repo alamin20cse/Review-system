@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
   {
     return <h1>loading...</h1>
   }
-  console.log(product.image);
+  // console.log(product.image);
 
   // React Hook Form
   const { register, handleSubmit, reset } = useForm({
